@@ -203,7 +203,7 @@ void randomItems(string items[], string role) {
 	return;
 }
 //---------------------------------------------------------------------------//
-int main() {
+/*int main() {
 	// Start the loop
 	bool isRunning = true;
 	while (isRunning) {
@@ -245,4 +245,4 @@ int main() {
 		cout << '\n';
 	}
 	return 0;
-}
+}*/
