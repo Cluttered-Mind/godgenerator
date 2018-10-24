@@ -9,6 +9,7 @@
 using namespace std;
 //---------------------------------------------------------------------------//
 string randomGod(string & role) {
+	srand((unsigned)time(0));
 	// Initialize variables
 	ifstream godFile;
 	string godName;
@@ -62,6 +63,7 @@ string randomGod(string & role) {
 }
 //---------------------------------------------------------------------------//
 void randomRelics(string relics[]) {
+	srand((unsigned)time(0));
 	// Initialize variables
 	string relicName;
 	int listLength = 0;
@@ -112,6 +114,7 @@ void randomRelics(string relics[]) {
 }
 //---------------------------------------------------------------------------//
 string randomStarter() {
+	srand((unsigned)time(0));
 	// Initialize variables
 	string starterName;
 	int listLength = 0;
@@ -141,6 +144,7 @@ string randomStarter() {
 }
 //---------------------------------------------------------------------------//
 void randomItems(string items[], string role) {
+	srand((unsigned)time(0));
 	// Initialize variables
 	string itemName;
 	int listLength = 0;

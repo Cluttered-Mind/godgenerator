@@ -59,9 +59,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		sent to WndProc. Note that GetMessage blocks code flow until it receives something, so
 		this loop will not produce unreasonably high CPU usage
 	*/
+	
+	PAINTSTRUCT ps;
+	HDC hDC = BeginPaint (hwnd, &ps);
+	
+	std::string godNameString = "";
+	std::string temp = "";
+	godNameString = randomGod(temp);
+	TextOut(hDC, 10, 10, godNameString.c_str(), godNameString.length());
+	TextOut(hDC, 10, 50, temp.c_str(), 10);
+	
+	EndPaint (hwnd, &ps);
+	
 	while(GetMessage(&msg, NULL, 0, 0) > 0) { /* If no error is received... */
 		TranslateMessage(&msg); /* Translate key codes to chars if present */
-		DispatchMessage(&msg); /* Send it to WndProc */
+		DispatchMessage(&msg); /* Send it to WndProc */		
 	}
+	
 	return msg.wParam;
 }
