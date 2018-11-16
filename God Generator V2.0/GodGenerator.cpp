@@ -8,7 +8,7 @@
 #include <limits>
 using namespace std;
 //---------------------------------------------------------------------------//
-string randomGod(string & role) {
+void randomGod(string & name, string & role) {
 	srand((unsigned)time(0));
 	// Initialize variables
 	ifstream godFile;
@@ -57,9 +57,10 @@ string randomGod(string & role) {
 			getline(godFile, godName);
 		}
 	}
+	name = godName;
 	// Close the file and return godName
 	godFile.close();
-	return godName;
+	return;
 }
 //---------------------------------------------------------------------------//
 void randomRelics(string relics[]) {
@@ -113,7 +114,7 @@ void randomRelics(string relics[]) {
 	return;
 }
 //---------------------------------------------------------------------------//
-string randomStarter() {
+void randomStarter(string & name) {
 	srand((unsigned)time(0));
 	// Initialize variables
 	string starterName;
@@ -138,9 +139,10 @@ string randomStarter() {
 			getline(starterFile, starterName);
 		}
 	}
+	name = starterName;
 	// Close the file and return starterName
 	starterFile.close();
-	return starterName;
+	return;
 }
 //---------------------------------------------------------------------------//
 void randomItems(string items[], string role) {

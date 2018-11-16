@@ -18,6 +18,37 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
 	return 0;
 }
 
+// Generate and Print
+void generate(HDC hDC) {
+	// Declare Variables
+	std::string godName;
+	std::string godRole;
+	std::string itemsRelics[2];
+	std::string itemsStarter;
+	std::string itemsBuild[6];
+	
+	// Generate Data
+	randomGod(godName, godRole);
+	randomRelics(itemsRelics);
+	randomStarter(itemsStarter);
+	randomItems(itemsBuild, godRole);
+	
+	// Output Variables
+	TextOut(hDC, 10, 10, godName.c_str(), godName.length());
+	TextOut(hDC, 10, 30, godRole.c_str(), godRole.length());
+	TextOut(hDC, 10, 50, itemsRelics[0].c_str(), itemsRelics[0].length());
+	TextOut(hDC, 10, 70, itemsRelics[1].c_str(), itemsRelics[1].length());
+	TextOut(hDC, 10, 90, itemsStarter.c_str(), itemsStarter.length());
+	TextOut(hDC, 10, 110, itemsBuild[0].c_str(), itemsBuild[0].length());
+	TextOut(hDC, 10, 130, itemsBuild[1].c_str(), itemsBuild[1].length());
+	TextOut(hDC, 10, 150, itemsBuild[2].c_str(), itemsBuild[2].length());
+	TextOut(hDC, 10, 170, itemsBuild[3].c_str(), itemsBuild[3].length());
+	TextOut(hDC, 10, 190, itemsBuild[4].c_str(), itemsBuild[4].length());
+	TextOut(hDC, 10, 210, itemsBuild[5].c_str(), itemsBuild[5].length());
+	
+	return;
+}
+
 /* The 'main' function of Win32 GUI programs: this is where execution starts */
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	WNDCLASSEX wc; /* A properties struct of our window */
@@ -60,20 +91,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		this loop will not produce unreasonably high CPU usage
 	*/
 	
+	// Declare Canvas
 	PAINTSTRUCT ps;
 	HDC hDC = BeginPaint (hwnd, &ps);
 	
-	std::string godNameString = "";
-	std::string temp = "";
-	godNameString = randomGod(temp);
-	TextOut(hDC, 10, 10, godNameString.c_str(), godNameString.length());
-	TextOut(hDC, 10, 50, temp.c_str(), 10);
+	// Generate Initial Build
+	generate(hDC);
 	
+	// Close Canvas
 	EndPaint (hwnd, &ps);
 	
 	while(GetMessage(&msg, NULL, 0, 0) > 0) { /* If no error is received... */
 		TranslateMessage(&msg); /* Translate key codes to chars if present */
-		DispatchMessage(&msg); /* Send it to WndProc */		
+		DispatchMessage(&msg); /* Send it to WndProc */	
 	}
 	
 	return msg.wParam;
