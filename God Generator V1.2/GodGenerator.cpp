@@ -8,8 +8,7 @@
 #include <limits>
 using namespace std;
 //---------------------------------------------------------------------------//
-void randomGod(string & name, string & role) {
-	srand((unsigned)time(0));
+string randomGod(string & role) {
 	// Initialize variables
 	ifstream godFile;
 	string godName;
@@ -57,14 +56,12 @@ void randomGod(string & name, string & role) {
 			getline(godFile, godName);
 		}
 	}
-	name = godName;
 	// Close the file and return godName
 	godFile.close();
-	return;
+	return godName;
 }
 //---------------------------------------------------------------------------//
 void randomRelics(string relics[]) {
-	srand((unsigned)time(0));
 	// Initialize variables
 	string relicName;
 	int listLength = 0;
@@ -114,8 +111,7 @@ void randomRelics(string relics[]) {
 	return;
 }
 //---------------------------------------------------------------------------//
-void randomStarter(string & name) {
-	srand((unsigned)time(0));
+string randomStarter() {
 	// Initialize variables
 	string starterName;
 	int listLength = 0;
@@ -139,14 +135,12 @@ void randomStarter(string & name) {
 			getline(starterFile, starterName);
 		}
 	}
-	name = starterName;
 	// Close the file and return starterName
 	starterFile.close();
-	return;
+	return starterName;
 }
 //---------------------------------------------------------------------------//
 void randomItems(string items[], string role) {
-	srand((unsigned)time(0));
 	// Initialize variables
 	string itemName;
 	int listLength = 0;
@@ -209,20 +203,22 @@ void randomItems(string items[], string role) {
 	return;
 }
 //---------------------------------------------------------------------------//
-/*int main() {
+int main() {
+	// Seed the random number generator
+	srand((unsigned)time(0));
 	// Start the loop
 	bool isRunning = true;
 	while (isRunning) {
-		// Seed the random number generator
-		srand((unsigned)time(0));
+		// Clear the console
+		cout << string(100, '\n');
 		// Generate god and output results
 		string role;
 		string god = randomGod(role);
 		cout << "God: " << god << '\n';
-		cout << "Role: " << role << '\n';
+		cout << "Role: " << role << '\n' << '\n';
 		string relics[2];
 		randomRelics(relics);
-		cout << "Relics: " << relics[0] << " and " << relics[1] << '\n';
+		cout << "Relics: " << relics[0] << " and " << relics[1] << '\n' << '\n';
 		string starterItem = randomStarter();
 		cout << "Starter Item: " << starterItem << '\n';
 		string items[6];
@@ -241,14 +237,24 @@ void randomItems(string items[], string role) {
 				cout << items[x] << ", ";
 			}
 		}
-		// Choice to continue or quit
-		char choice;
-		cout << "Spin again? (y or n) ";
-		cin >> choice;
-		if (choice == 'n' || choice == 'N') {
-			isRunning = false;
-		}
 		cout << '\n';
+		// Choice to continue or quit
+		string choice = "";
+		int keepAsking = 0;
+		cout << "Spin again? (y or n) ";
+		while (keepAsking == 0) {
+			getline(cin, choice);
+			if (choice == "y" || choice == "Y") {
+				keepAsking = 1;
+			}
+			else if (choice == "n" || choice == "N") {
+				keepAsking = 1;
+				isRunning = false;
+			}
+			else {
+				cout << "Please only enter y or n ";
+			}
+		}
 	}
 	return 0;
-}*/
+}
