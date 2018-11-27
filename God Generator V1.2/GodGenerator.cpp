@@ -6,12 +6,11 @@
 #include <fstream>
 #include <vector>
 #include <limits>
-using namespace std;
 //---------------------------------------------------------------------------//
-string randomGod(string & role) {
+std::string randomGod(std::string & role) {
 	// Initialize variables
-	ifstream godFile;
-	string godName;
+	std::ifstream godFile;
+	std::string godName;
 	int listLength = 0;
 	// Pick the random file
 	int rList = (rand() % 5) + 1;
@@ -37,7 +36,7 @@ string randomGod(string & role) {
 	}
 	// Make sure the file opened
 	if (!godFile) {
-		cerr << "Couldn't open file!" << endl;
+		std::cerr << "Couldn't open file!" << std::endl;
 	}
 	// Choose the random god
 	else {
@@ -49,7 +48,7 @@ string randomGod(string & role) {
 		}
 		// Go back to the beginning of the file
 		godFile.clear();
-		godFile.seekg(0, ios::beg);
+		godFile.seekg(0, std::ios::beg);
 		// Set godName to the random god
 		int rGod = rand() % listLength;
 		for (int x = 0; x <= rGod; x++) {
@@ -61,15 +60,15 @@ string randomGod(string & role) {
 	return godName;
 }
 //---------------------------------------------------------------------------//
-void randomRelics(string relics[]) {
+void randomRelics(std::string relics[]) {
 	// Initialize variables
-	string relicName;
+	std::string relicName;
 	int listLength = 0;
 	// Open file
-	ifstream relicFile("data/relics/relics.txt");
+	std::ifstream relicFile("data/relics/relics.txt");
 	// Make sure the file opened
 	if (!relicFile) {
-		cerr << "Couldn't open file!" << endl;
+		std::cerr << "Couldn't open file!" << std::endl;
 	}
 	// Choose the random relics
 	else {
@@ -82,7 +81,7 @@ void randomRelics(string relics[]) {
 		// Choose two random relics
 		for (int x = 0; x < 2; x++) {
 			relicFile.clear();
-			relicFile.seekg(0, ios::beg);
+			relicFile.seekg(0, std::ios::beg);
 			int rRelic = rand() % listLength;
 			for (int x = 0; x <= rRelic; x++) {
 				getline(relicFile, relicName);
@@ -94,7 +93,7 @@ void randomRelics(string relics[]) {
 		while (sameRelics) {
 			if (relics[0] == relics[1]) {
 				relicFile.clear();
-				relicFile.seekg(0, ios::beg);
+				relicFile.seekg(0, std::ios::beg);
 				int rRelic = rand() % listLength;
 				for (int x = 0; x <= rRelic; x++) {
 					getline(relicFile, relicName);
@@ -111,15 +110,15 @@ void randomRelics(string relics[]) {
 	return;
 }
 //---------------------------------------------------------------------------//
-string randomStarter() {
+std::string randomStarter() {
 	// Initialize variables
-	string starterName;
+	std::string starterName;
 	int listLength = 0;
 	// Open the file
-	ifstream starterFile("data/items/starter.txt");
+	std::ifstream starterFile("data/items/starter.txt");
 	// Make sure the file opened
 	if (!starterFile) {
-		cerr << "Couldn't open file!" << endl;
+		std::cerr << "Couldn't open file!" << std::endl;
 	}
 	// Choose a random starter item
 	else {
@@ -129,7 +128,7 @@ string randomStarter() {
 			}
 		}
 		starterFile.clear();
-		starterFile.seekg(0, ios::beg);
+		starterFile.seekg(0, std::ios::beg);
 		int rStarter = rand() % listLength;
 		for (int x = 0; x <= rStarter; x++) {
 			getline(starterFile, starterName);
@@ -140,11 +139,11 @@ string randomStarter() {
 	return starterName;
 }
 //---------------------------------------------------------------------------//
-void randomItems(string items[], string role) {
+void randomItems(std::string items[], std::string role) {
 	// Initialize variables
-	string itemName;
+	std::string itemName;
 	int listLength = 0;
-	ifstream itemFile;
+	std::ifstream itemFile;
 	// Choose the file that matches god role
 	if (role == "Assassin") {
 		itemFile.open("data/items/assassin.txt");
@@ -163,7 +162,7 @@ void randomItems(string items[], string role) {
 	}
 	// Make sure the file opened
 	if (!itemFile) {
-		cerr << "Couldn't open file!" << endl;
+		std::cerr << "Couldn't open file!" << std::endl;
 	}
 	// Choose the random items
 	else {
@@ -176,7 +175,7 @@ void randomItems(string items[], string role) {
 		// Choose 6 random items and put them into the array
 		for (int x = 0; x < 6; x++) {
 			itemFile.clear();
-			itemFile.seekg(0, ios::beg);
+			itemFile.seekg(0, std::ios::beg);
 			int rItem = rand() % listLength;
 			for (int x = 0; x <= rItem; x++) {
 				getline(itemFile, itemName);
@@ -188,7 +187,7 @@ void randomItems(string items[], string role) {
 			for (int k = j + 1; k < 6; k++) {
 				if (items[j] == items[k]) {
 					itemFile.clear();
-					itemFile.seekg(0, ios::beg);
+					itemFile.seekg(0, std::ios::beg);
 					int rItem = rand() % listLength;
 					for (int x = 0; x <= rItem; x++) {
 						getline(itemFile, itemName);
@@ -210,20 +209,20 @@ int main() {
 	bool isRunning = true;
 	while (isRunning) {
 		// Clear the console
-		cout << string(100, '\n');
+		std::cout << std::string(100, '\n');
 		// Generate god and output results
-		string role;
-		string god = randomGod(role);
-		cout << "God: " << god << '\n';
-		cout << "Role: " << role << '\n' << '\n';
-		string relics[2];
+		std::string role;
+		std::string god = randomGod(role);
+		std::cout << "God: " << god << '\n';
+		std::cout << "Role: " << role << '\n' << '\n';
+		std::string relics[2];
 		randomRelics(relics);
-		cout << "Relics: " << relics[0] << " and " << relics[1] << '\n' << '\n';
-		string starterItem = randomStarter();
-		cout << "Starter Item: " << starterItem << '\n';
-		string items[6];
+		std::cout << "Relics: " << relics[0] << " and " << relics[1] << '\n' << '\n';
+		std::string starterItem = randomStarter();
+		std::cout << "Starter Item: " << starterItem << '\n';
+		std::string items[6];
 		randomItems(items, role);
-		cout << "Items: ";
+		std::cout << "Items: ";
 		// Update first item if god is Ratatoskr
 		if (god == "Ratatoskr") {
 			items[0] = "Acorn of Yggdrasil";
@@ -231,19 +230,19 @@ int main() {
 		// Print items
 		for (int x = 0; x < 6; x++) {
 			if (x == 5) {
-				cout << items[x] << '\n';
+				std::cout << items[x] << '\n';
 			}
 			else {
-				cout << items[x] << ", ";
+				std::cout << items[x] << ", ";
 			}
 		}
-		cout << '\n';
+		std::cout << '\n';
 		// Choice to continue or quit
-		string choice = "";
+		std::string choice = "";
 		int keepAsking = 0;
-		cout << "Spin again? (y or n) ";
+		std::cout << "Spin again? (y or n) ";
 		while (keepAsking == 0) {
-			getline(cin, choice);
+			getline(std::cin, choice);
 			if (choice == "y" || choice == "Y") {
 				keepAsking = 1;
 			}
@@ -252,7 +251,7 @@ int main() {
 				isRunning = false;
 			}
 			else {
-				cout << "Please only enter y or n ";
+				std::cout << "Please only enter y or n ";
 			}
 		}
 	}
