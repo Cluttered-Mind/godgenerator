@@ -83,7 +83,7 @@ void randomRelics(std::string relics[]) {
 			relicFile.clear();
 			relicFile.seekg(0, std::ios::beg);
 			int rRelic = rand() % listLength;
-			for (int x = 0; x <= rRelic; x++) {
+			for (int y = 0; y <= rRelic; y++) {
 				getline(relicFile, relicName);
 			}
 			relics[x] = relicName;
@@ -142,26 +142,36 @@ std::string randomStarter() {
 void randomItems(std::string items[], std::string role) {
 	// Initialize variables
 	std::string itemName;
+	std::string boots;
 	int listLength = 0;
 	std::ifstream itemFile;
-	// Choose the file that matches god role
+	std::ifstream bootsFile;
+	// Open the files that match the god role
 	if (role == "Assassin") {
 		itemFile.open("data/items/assassin.txt");
+		bootsFile.open("data/items/physboots.txt");
 	}
 	else if (role == "Guardian") {
 		itemFile.open("data/items/guardian.txt");
+		bootsFile.open("data/items/mageboots.txt");
 	}
 	else if (role == "Hunter") {
 		itemFile.open("data/items/hunter.txt");
+		bootsFile.open("data/items/physboots.txt");
 	}
 	else if (role == "Mage") {
 		itemFile.open("data/items/mage.txt");
+		bootsFile.open("data/items/mageboots.txt");
 	}
 	else if (role == "Warrior") {
 		itemFile.open("data/items/warrior.txt");
+		bootsFile.open("data/items/physboots.txt");
 	}
-	// Make sure the file opened
+	// Make sure the files open
 	if (!itemFile) {
+		std::cerr << "Couldn't open file!" << std::endl;
+	}
+	if (!bootsFile) {
 		std::cerr << "Couldn't open file!" << std::endl;
 	}
 	// Choose the random items
@@ -177,7 +187,7 @@ void randomItems(std::string items[], std::string role) {
 			itemFile.clear();
 			itemFile.seekg(0, std::ios::beg);
 			int rItem = rand() % listLength;
-			for (int x = 0; x <= rItem; x++) {
+			for (int y = 0; y <= rItem; y++) {
 				getline(itemFile, itemName);
 			}
 			items[x] = itemName;
@@ -196,9 +206,18 @@ void randomItems(std::string items[], std::string role) {
 				}
 			}
 		}
+		// Put boots into the first item spot
+		bootsFile.clear();
+		bootsFile.seekg(0, std::ios::beg);
+		int rBoots = rand() % 4;
+		for (int x = 0; x <= rBoots; x++) {
+			getline(bootsFile, boots);
+		}
+		items[0] = boots;
 	}
 	// Close the file and return
 	itemFile.close();
+	bootsFile.close();
 	return;
 }
 //---------------------------------------------------------------------------//
